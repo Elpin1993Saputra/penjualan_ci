@@ -1,0 +1,12 @@
+
+----------------------------------------
+QUERY DETAIL PEMBELIAN
+
+select t1.id as kode, t1.nota, t2.id, nmsupplier, jumlahbeli, tgl,total from pembelian t1, supplier t2 where t1.kdsupplier= t2.id and t1.id=1
+
+
+select t1.id_pembelian as id_detail, t1.kd_barang as kd_barang,  t2.nmbrg, t2.satuan, t1.jumlah, t1.jml_bayar from detail_pembelian t1, barang t2, pembelian t3 where t1.id_pembelian=t3.id and t1.kd_barang=t2.id and t1.id_pembelian=1
+
+-------------------------------------
+
+
