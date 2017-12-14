@@ -13,19 +13,12 @@ class Mpembelian extends CI_Model
 	{
 
 
-		$get = $this->db->query("select t1.id as id, nota, t2.id as kdsupplier, t2.nmsupplier, jumlahbeli, tgl, total from pembelian t1, supplier t2 where t1.kdsupplier=t2.id ". " $cond");
+		$get = $this->db->query("select t1.id as id, t1.nota, t2.id as kd_supplier, t2.nmsupplier, t1.jumlahbeli, t1.tgl, t1.total from pembelian t1, supplier t2 where t1.kdsupplier=t2.id ". " $cond");
 
 		return $get;
 	}
 
-	public function detailPembelian1($cond = "")
-	{
-		$query1 = "select t1.id as kode, t1.nota, t2.id, nmsupplier, jumlahbeli, tgl,total from pembelian t1, supplier t2 where t1.kdsupplier= t2.id ". "$cond";
-
-		$get = $this->db->query($query1);
-
-		return $get;
-	}
+	
 
 	public function detailPembelian2($cond = "")
 	{
@@ -49,7 +42,7 @@ class Mpembelian extends CI_Model
 
 		$query2 = "SELECT 
 						t1.id as id_pembelian, t1. nota, t1.jumlahbeli, t1.tgl, t1. total, 
-					    t2.jumlah as jml_beli, t2.jml_bayar as total,
+					    t2.jumlah as jml_beli, t2.jml_bayar as subtotal,
 					    t3.nmbrg, t3.satuan, t3.harga, t3.jumlah as stok,
 					    t4.nmsupplier
 					FROM 
@@ -58,7 +51,7 @@ class Mpembelian extends CI_Model
 					    barang t3,
 					    supplier t4
 					where 
-						t1.id = t2.id_pembelian and
+						t1.id = t2.kd_pembelian and
 					    t2.kd_barang = t3.id AND
 					    t1.kdsupplier = t4.id ". " $cond"	;	
 		$get = $this->db->query($query2);

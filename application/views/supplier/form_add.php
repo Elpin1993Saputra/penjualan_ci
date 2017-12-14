@@ -16,10 +16,17 @@
             <form class="form-horizontal" action="<?php echo site_url()."/supplier/add"; ?>" method="POST">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="nama_supplier" class="col-sm-2 control-label">Nama Supplier</label>
+                  <label for="kode" class="col-sm-2 control-label">Kode Kategori</label>
 
                   <div class="col-sm-4">
-                    <input type="text" name="nama" class="form-control" id="nama_supplier" value="<?php echo set_value('nama'); ?>" placeholder="Nama Supplier">
+                    <input type="text" name="kode" class="form-control" id="kode" value="<?php echo $konik; ?>" placeholder="Kode Supplier" readonly>
+                  </div>
+                </div>                
+                <div class="form-group">
+                  <label for="nama" class="col-sm-2 control-label">Nama Supplier</label>
+
+                  <div class="col-sm-4">
+                    <input type="text" name="nama" class="form-control" id="nama" value="<?php echo set_value('nama'); ?>" placeholder="Nama Supplier">
                   </div>
                 </div>
                 <div class="form-group">
@@ -42,9 +49,9 @@
               <div class="box-footer" >
               <div class="col-sm-2"></div>
               <div class="col-sm-4">
-                <button type="submit" class="btn btn-info">Simpan</button>
-		        <button type="Reset" class="btn btn-default">Batal</button>
-		      </div>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+                <?php echo "<input type='button' class='btn btn-warning' value='Kembali' onclick=\"window.location.href='".site_url()."/supplier';\">"; ?>
+  		      </div>
 		      </div>
               <!-- /.box-footer -->
             </form>

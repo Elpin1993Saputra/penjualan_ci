@@ -1,0 +1,1 @@
+DELETE FROM kategori WHERE id=4# 1 baris terpengaruh. ALTER TABLE kategori DROP id# 4 baris terpengaruh. ALTER TABLE kategori ADD id INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST# MySQL memberikan hasil kosong (atau nol baris).

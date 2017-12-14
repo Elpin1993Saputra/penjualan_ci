@@ -24,12 +24,14 @@ class Kategori extends CI_Controller {
 	public function form(){
 		$data['judul'] = "Form Input Kategori";
 		$data['content'] = "/kategori/form_add";
+		$data['konik'] = $this->mkategori->code_otomatis();
 
 		$this->load->view('pages/home', $data);
 	}
 
 	public function add(){
 
+		$this->form_validation->set_rules('kode', 'kode kategori', 'trim|required');
 		$this->form_validation->set_rules('nama', 'nama kategori', 'trim|required');
 		$this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
 
@@ -40,6 +42,7 @@ class Kategori extends CI_Controller {
 		if($this->form_validation->run() == FALSE){
 			$data['judul'] = "Form Input Kategori";
 			$data['content'] = "/kategori/form_add";
+			$data['konik'] = $_POST['kode'];
 			$this->load->view('pages/home', $data);
 		}
 		else
@@ -59,8 +62,9 @@ class Kategori extends CI_Controller {
 
 		$data = array(
 				"id" =>$getId[0]['id'],
-				"nm_kategori" => $getId[0]['nm_kategori'],
-				"keterangan" => $getId[0]['keterangan']
+				"nama" => $getId[0]['nm_kategori'],
+				"keterangan" => $getId[0]['keterangan'],
+				"kode"       => $getId[0]['kd_kategori']
 
 			);
 
@@ -73,6 +77,7 @@ class Kategori extends CI_Controller {
 
 	public function do_edit(){
 
+		$this->form_validation->set_rules('kode', 'kode kategori', 'trim|required');
 		$this->form_validation->set_rules('nama', 'nama kategori', 'trim|required');
 		$this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
 
@@ -83,6 +88,12 @@ class Kategori extends CI_Controller {
 		if($this->form_validation->run() == FALSE){
 			$data['judul'] = "Form Edit Kategori";
 			$data['content'] = "/kategori/form_edit";
+			$data['id']   = $_POST['id'];
+			$data['kode'] = $_POST['kode'];
+			$data['nama'] = $_POST['nama'];
+			$data['keterangan'] = $_POST['keterangan'];
+
+
 			$this->load->view('pages/home', $data);
 		}
 		else

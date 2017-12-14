@@ -71,68 +71,80 @@ $(document).ready(function(){
             <!-- /.box-header -->
             <!-- form start -->
             <form class="form-horizontal" action="<?php echo site_url()."/barang/add"; ?>" method="POST">
+ 
               <div class="box-body">
-                
-                <div class="form-group">
-                  <label for="nama_barang" class="col-sm-2 control-label">Nama Barang</label>
+                 <div class="form-group">
+                  <label for="kode" class="col-sm-2 control-label">Kode Barang</label>
 
                   <div class="col-sm-4">
-                    <input type="text" class="form-control" name="nama" value="<?php set_value('nama');?>" id="nama_barang" placeholder="Inputkan Nama Barang">
+                    <input type="text" name="kode" class="form-control" id="kode" value="<?php echo $kode; ?>" placeholder="Kode Barang" readonly>
                   </div>
-                
+
+                  <label for="nama" class="col-sm-2 control-label">Nama Barang</label>
+
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control" name="nama" value="<?php echo set_value('nama');?>" id="nama" placeholder="Inputkan Nama Barang">
+                  </div>
+                </div>                
+               
+                <div class="form-group">
                   <label for="satuan" class="col-sm-2 control-label">Satuan Barang</label>
 
                   <div class="col-sm-4">
-                    <input type="text" name="satuan" value="<?php set_value('satuan');?>" class="form-control" id="satuan" placeholder="Inputkan Satuan Barang">
+                    <input type="text" name="satuan" value="<?php echo set_value('satuan');?>" class="form-control" id="satuan" placeholder="Inputkan Satuan Barang">
                   </div>
-                </div>
-                <div class="form-group">
+
                   <label for="jumlah"  class="col-sm-2 control-label">Jumlah Barang</label>
 
                   <div class="col-sm-4">
-                    <input type="text" value="<?php set_value('jumlah');?>" name="jumlah" class="form-control" id="jumlah" placeholder="Inputkan Jumlah Barang">
-                  </div>
-                
-                  <label for="harga" class="col-sm-2 control-label">Harga Barang</label>
-
-                  <div class="col-sm-4">
-                    <input type="text" name="harga" value="<?php set_value('harga');?>" class="form-control" id="harga" placeholder="Inputkan Harga Barang">
+                    <input type="text" value="<?php echo set_value('jumlah');?>" name="jumlah" class="form-control" id="jumlah" placeholder="Inputkan Jumlah Barang">
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label for="kategori"  class="col-sm-2 control-label">Kategori</label>
+                  <label for="harga" class="col-sm-2 control-label">Harga Barang</label>
 
                   <div class="col-sm-4">
-                    <select class="form-control select2" onchange="changest(this)" name="kategori" id="kategori" style="width: 100%;" >
-                    <option value="" <?php echo  set_select('kategori', "", false); ?>>Pilih Kategori</option>	
+                    <input type="text" name="harga" value="<?php echo set_value('harga');?>" class="form-control" id="harga" placeholder="Inputkan Harga Barang">
+                  </div>
+
+                  <label for="kategori"  class="col-sm-2 control-label">Kategori Barang</label>
+
+                  <div class="col-sm-4">
+                    <select class="form-control" onchange="changest(this)"  name="kategori" id="kategori" style="width: 100%;" >
+                    <option value="" >Pilih Kategori</option>  
                     <?php
                     foreach ($getKategori as $key) {
                     ?>
-                    <option value="<?php echo $key['id'];?>" <?php echo  set_select('kategori', $key['id']); ?>><?php echo $key['nm_kategori']; ?></option>
+                    <option value="<?php echo $key['id'];?>" <?php if($kategori==$key['id']) echo "selected" ?>><?php echo $key['nm_kategori']; ?></option>
 
-                    <?php	
+                    <?php 
                     }
                     ?>
-	                </select>
+                  </select>
                   </div>
+                </div>
+
+                <div class="form-group">
                 
-                  <label for="keterangan" class="col-sm-2 control-label">Keterangan</label>
+                  <div class="col-sm-6 text-center">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <?php echo "<input type='button' class='btn btn-warning' value='Kembali' onclick=\"window.location.href='".site_url()."/barang';\">"; ?>
+                  </div>
+
+                  <label for="keterangan" class="col-sm-2 control-label">Keterangan Kategori</label>
 
                   <div class="col-sm-4">
-                    <textarea class="form-control keterangan" id="keterangan" rows="3" placeholder="Pilih Kategori" readonly></textarea>
+                    <textarea name="keterangan" class="form-control" id="keterangan" rows="3" placeholder="Pilih Kategori" readonly><?php echo set_value('keterangan');?></textarea>
                   </div>
+
                 </div>
 
 
               <!-- /.box-body -->
               <div class="box-footer">
-              	<div class="col-sm-5"></div>
-              	<div class="col-sm-5">
-		            <button type="submit" class="btn btn-info ">Simpan</button>
-		            <button type="reset" class="btn btn-default">Batal</button>
-		         </div>
-              </div>
+ 
+             </div>
               <!-- /.box-footer -->
             </form>
           </div>

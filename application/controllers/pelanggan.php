@@ -24,12 +24,14 @@ class Pelanggan extends CI_Controller {
 	{
 		$data['judul'] = 'Form Input Pelanggan';
 		$data['content'] = "/pelanggan/form_add";
+		$data['kode'] = $this->mpelanggan->code_otomatis();
 
 		$this->load->view('pages/home', $data);
 	}
 
 	public function add()
 	{
+		$this->form_validation->set_rules('kode', 'kode pelanggan','trim|required');
 		$this->form_validation->set_rules('nama', 'nama pelanggan','trim|required');
 		$this->form_validation->set_rules('alamat', 'alamat pelanggan', 'trim|required');
 		$this->form_validation->set_rules('nohp', 'nomor hp pelanggan', 'trim|required|numeric');
@@ -43,6 +45,7 @@ class Pelanggan extends CI_Controller {
 		{
 			$data['judul'] = "Form Input Pelanggan";
 			$data['content'] = "/pelanggan/form_add";
+			$data['kode'] = $_POST['kode'];
 			$this->load->view('pages/home', $data);
 		}else
 		{
@@ -61,9 +64,11 @@ class Pelanggan extends CI_Controller {
 		// print_r($getId);
 		$data = array(
 				"id" => $getId[0]['id'],
-				"nmpel" => $getId[0]['nmpel'],
+				"nama" => $getId[0]['nmpel'],
 				"alamat" => $getId[0]['alamat'],
-				"nohp" => $getId[0]['nohp']
+				"nohp" => $getId[0]['nohp'],
+				"kode" => $getId[0]['kd_pelanggan']
+
 
 			);
 		
@@ -74,8 +79,9 @@ class Pelanggan extends CI_Controller {
 		$this->load->view('pages/home', $data);
 	}
 
-	public function do_edit(){
-
+	public function do_edit()
+	{
+		$this->form_validation->set_rules('kode', 'kode pelanggan', 'trim|required');
 		$this->form_validation->set_rules('nama', 'nama pelanggan','trim|required');
 		$this->form_validation->set_rules('alamat', 'alamat supplier', 'trim|required');
 		$this->form_validation->set_rules('nohp', 'nomor hp supplier', 'trim|required|numeric');
@@ -88,8 +94,14 @@ class Pelanggan extends CI_Controller {
 
             if ($this->form_validation->run() == FALSE){
 		        $data['judul'] = "Form Edit Pelanggan";
-				$data['content'] ="/pelanggan/form_edit/";
+				$data['content'] ="/pelanggan/form_edit";
+				$data['id'] = $_POST['id'];
+				$data['kode'] = $_POST['kode'];
+				$data['nama'] = $_POST['nama'];
+				$data['alamat'] = $_POST['alamat'];
+				$data['nohp'] = $_POST['nohp'];
 				$this->load->view('pages/home', $data);
+				
 			}
 			else
 			{

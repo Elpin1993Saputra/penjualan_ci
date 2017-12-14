@@ -28,12 +28,15 @@ class Supplier extends CI_Controller {
 	{
 		$data['judul'] = "Form Input Supplier";
 		$data['content'] = "/supplier/form_add";
+		$data['konik'] = $this->msupplier->code_otomatis();
 
 		$this->load->view('pages/home', $data);
 	}
 
 	public function add()
 	{
+
+		$this->form_validation->set_rules('kode', 'kode supplier', 'trim|required');
 		$this->form_validation->set_rules('nama', 'nama supplier','trim|required');
 		$this->form_validation->set_rules('alamat', 'alamat supplier', 'trim|required');
 		$this->form_validation->set_rules('nohp', 'nomor hp supplier', 'trim|required|numeric');
@@ -47,6 +50,7 @@ class Supplier extends CI_Controller {
 		{
 			$data['judul'] = "Form Input Barang";
 			$data['content'] = "/supplier/form_add";
+			$data['konik'] = $_POST['kode'];
 			$this->load->view('pages/home', $data);
 		}else
 		{
@@ -63,9 +67,10 @@ class Supplier extends CI_Controller {
 		// print_r($getId);
 		$data = array(
 				"id" => $getId[0]['id'],
-				"nm_supplier" => $getId[0]['nmsupplier'],
+				"nama" => $getId[0]['nmsupplier'],
 				"alamat" => $getId[0]['alamat'],
-				"nohp" => $getId[0]['nohp']
+				"nohp" => $getId[0]['nohp'],
+				"kode" => $getId[0]['kd_supplier']
 
 			);
 		
@@ -76,8 +81,10 @@ class Supplier extends CI_Controller {
 		$this->load->view('pages/home', $data);
 	}
 
-	public function do_edit(){
+	public function do_edit()
+	{
 
+		$this->form_validation->set_rules('kode', 'kode supplier','trim|required');
 		$this->form_validation->set_rules('nama', 'nama supplier','trim|required');
 		$this->form_validation->set_rules('alamat', 'alamat supplier', 'trim|required');
 		$this->form_validation->set_rules('nohp', 'nomor hp supplier', 'trim|required|numeric');
@@ -90,7 +97,13 @@ class Supplier extends CI_Controller {
 
             if ($this->form_validation->run() == FALSE){
 		        $data['judul'] = "Form Edit Supplier";
-				$data['content'] ="/supplier/form_edit/";
+				$data['content'] ="/supplier/form_edit";
+				$data['id']   = $_POST['id'];
+				$data['kode'] = $_POST['kode'];
+				$data['nama'] = $_POST['nama'];
+				$data['alamat'] = $_POST['alamat'];
+				$data['nohp'] = $_POST['nohp'];
+
 				$this->load->view('pages/home', $data);
 			}
 			else

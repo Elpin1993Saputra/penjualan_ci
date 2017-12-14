@@ -8,9 +8,33 @@ class Mbarang extends CI_Model
 
 	}
 
+
+	public function code_otomatis(){
+        $this->db->select('Right(kdbrg,6) as kode ',false);
+            $this->db->order_by('id', 'desc');
+            $this->db->limit(1);
+            $query = $this->db->get('barang');
+            if($query->num_rows()<>0){
+                $data = $query->row();
+                $kode = intval($data->kode)+1;
+            }else{
+                $kode = 1;
+
+            }
+
+            $date = date('Ymd');
+            // $kode .=$date;
+            $kodemax = str_pad($kode,6,"0",STR_PAD_LEFT);
+            $konik  = "BRNG".$date.$kodemax;
+            
+            return $konik;
+
+    }
+
+
 	public function getBarang($where = " ")
 	{
-		$get = $this->db->query("select t1.id as id, t1.nmbrg as nmbrg, t1.id_kategori as id_kategori, t1.satuan, t1.harga as harga, t1.jumlah as jumlah, t2.nm_kategori   from barang t1, kategori t2 where t1.id_kategori=t2.id ". " $where");
+		$get = $this->db->query("select t1.id as id, t1.kdbrg, t1.nmbrg as nmbrg, t1.id_kategori as id_kategori, t1.satuan, t1.harga as harga, t1.jumlah as jumlah, t2.nm_kategori, t2.keterangan   from barang t1, kategori t2 where t1.id_kategori=t2.id ". " $where");
 
 		return $get;
 	}
@@ -29,13 +53,15 @@ class Mbarang extends CI_Model
 		$d = $this->input->post('jumlah');
 		$e = $this->input->post('harga');
 		$f = $this->input->post('kategori');
+		$g = $this->input->post('kode');
 
 		$object = array(
 				'nmbrg' => $b,
 				'satuan'=> $c,
 				'jumlah'=> $d,
 				'harga' => $e,
-				'id_kategori' => $f
+				'id_kategori' => $f,
+				'kdbrg' => $g
 			);
 		$id = $this->db->insert('barang', $object);
 		return $id;

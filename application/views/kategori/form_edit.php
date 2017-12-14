@@ -16,20 +16,27 @@
             <form class="form-horizontal" action="<?php echo site_url()."/kategori/do_edit"; ?>" method="POST">
               <div class="box-body">
 
+                <div class="form-group">
+                  <label for="kode" class="col-sm-2 control-label">Kode Kategori</label>
+
+                  <div class="col-sm-4">
+                    <input type="text" name="kode" class="form-control" id="kode" value="<?php echo $kode; ?>" placeholder="Kode Kategori" readonly>
+                  </div>
+                </div>                
 
                 <div class="form-group">
                   <label for="nama_kategori" class="col-sm-2 control-label">Nama Kategori</label>
 
                   <div class="col-sm-4">
                     <input type="text" name="id" value="<?php echo $id;?>" hidden>
-                    <input type="text" name="nama" class="form-control" id="nama_kategori" placeholder="Nama Kategori" value="<?php echo $nm_kategori; ?>" >
+                    <input type="text" name="nama" class="form-control" name="nama" id="nama_kategori" placeholder="Nama Kategori" value="<?php echo $nama; ?>" >
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="keterangan"  class="col-sm-2 control-label">Keterangan</label>
 
                   <div class="col-sm-4">
-                    <textarea class="form-control" name="keterangan" rows="3" placeholder="Keterangan" id="keterangan" ><?php echo $keterangan; ?></textarea>
+                    <textarea name="keterangan" class="form-control" id="keterangan" rows="3" placeholder="Pilih Kategori" readonly><?php echo $keterangan;?></textarea>
                   </div>
                 </div>
                 
@@ -38,9 +45,9 @@
               <div class="box-footer" >
                 <div class="col-sm-2"></div>
                   <div class="col-sm-4">
-                    <button type="submit" class="btn btn-info">Simpan</button>
-    		            <button type="Reset" class="btn btn-default">Batal</button>
-  		          </div>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+    		            <?php echo "<input type='button' class='btn btn-warning' value='Kembali' onclick=\"window.location.href='".site_url()."/kategori';\">"; ?>
+                    
 		          </div>
               <!-- /.box-footer -->
             </form>

@@ -16,11 +16,19 @@
             <form class="form-horizontal" action="<?php echo site_url()."/pelanggan/do_edit"; ?>" method="POST">
               <div class="box-body">
                 <div class="form-group">
+                  <label for="kode" class="col-sm-2 control-label">Kode Pelanggan</label>
+
+                  <div class="col-sm-4">
+                    <input type="text" name="kode" class="form-control" id="kode" value="<?php echo $kode; ?>" placeholder="Kode Kategori" readonly>
+                  </div>
+                </div>                
+
+                <div class="form-group">
                   <label for="nama_pel" class="col-sm-2 control-label">Nama Pelanggan</label>
 
                   <div class="col-sm-4">
                     <input  type="text" value="<?php echo $id; ?>" name="id" hidden>
-                    <input type="text" value="<?php echo $nmpel; ?>" name="nama" class="form-control" id="nama_pel"  placeholder="Nama Pelanggan">
+                    <input type="text" value="<?php echo $nama; ?>" name="nama" class="form-control" id="nama_pel"  placeholder="Nama Pelanggan">
                   </div>
                 </div>
                 <div class="form-group">
@@ -43,8 +51,8 @@
               <div class="box-footer" >
               <div class="col-sm-2"></div>
               <div class="col-sm-4">
-                <button type="submit" class="btn btn-info">Simpan</button>
-		        <button type="Reset" class="btn btn-default">Batal</button>
+               <button type="submit" class="btn btn-primary">Edit</button>
+                <?php echo "<input type='button' class='btn btn-warning' value='Kembali' onclick=\"window.location.href='".site_url()."/pelanggan';\">"; ?>
 		      </div>
 		      </div>
               <!-- /.box-footer -->

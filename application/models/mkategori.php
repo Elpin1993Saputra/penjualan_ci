@@ -8,6 +8,28 @@ class Mkategori extends CI_Model
 
 	}
 
+	public function code_otomatis(){
+        $this->db->select('Right(kategori.kd_kategori,6) as kode ',false);
+            $this->db->order_by('id', 'desc');
+            $this->db->limit(1);
+            $query = $this->db->get('kategori');
+            if($query->num_rows()<>0){
+                $data = $query->row();
+                $kode = intval($data->kode)+1;
+            }else{
+                $kode = 1;
+
+            }
+
+            $date = date('Ymd');
+            // $kode .=$date;
+            $kodemax = str_pad($kode,6,"0",STR_PAD_LEFT);
+            $konik  = "KTGR".$date.$kodemax;
+            
+            return $konik;
+
+    }
+	
 	public function getKategori($where = " ")
 	{
 		$get = $this->db->query("select * from kategori". "$where");
@@ -19,10 +41,12 @@ class Mkategori extends CI_Model
 	{
 		$a = $this->input->post('nama');
 		$b = $this->input->post('keterangan');
+		$c = $this->input->post('kode');
 
 		$object = array(
 				'nm_kategori' => $a,
-				'keterangan'  => $b
+				'keterangan'  => $b,
+				'kd_kategori' => $c
 			);
 		$id = $this->db->insert('kategori', $object);
 

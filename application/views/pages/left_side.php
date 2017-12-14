@@ -36,11 +36,6 @@
           </a>
           <ul class="treeview-menu">
             <li>
-              <a href="<?php echo site_url()."/barang" ?>">
-                <i class="fa fa-table"></i> <span>Barang</span>
-              </a>
-            </li>
-            <li>
               <a href="<?php echo site_url()."/kategori" ?>">
                 <i class="fa fa-table"></i> <span>Kategori</span>
               </a>
@@ -53,6 +48,11 @@
             <li>
               <a href="<?php echo site_url()."/pelanggan" ?>">
                 <i class="fa fa-table"></i> <span>Pelanggan</span>
+              </a>
+            </li>
+            <li>
+              <a href="<?php echo site_url()."/barang" ?>">
+                <i class="fa fa-table"></i> <span>Barang</span>
               </a>
             </li>
           </ul>

@@ -26,6 +26,9 @@ class Barang extends CI_Controller {
         $data['judul'] = "Form Input Barang";
 		$data['content'] = "/barang/form_add";
 		$data['getKategori'] = $this->mkategori->getKategori()->result_array();
+		$data['kode'] = $this->mbarang->code_otomatis();
+		$data['kategori'] = "";
+
 		$this->load->view('pages/home', $data);
 	}
 
@@ -33,11 +36,13 @@ class Barang extends CI_Controller {
 	{
 
 		
-		
+			$this->form_validation->set_rules('kode','kode_barang','trim|required');
 			$this->form_validation->set_rules('nama', 'nama barang', 'trim|required');
 			$this->form_validation->set_rules('satuan', 'satuan barang', 'trim|required');
 			$this->form_validation->set_rules('jumlah', 'jumlah barang', 'trim|required|numeric');
 			$this->form_validation->set_rules('harga', 'harga barang', 'trim|required|numeric');
+			$this->form_validation->set_rules('kategori', 'kategori barang', 'required');
+			$this->form_validation->set_rules('keterangan', 'keterangan kategori', 'trim|required');
 
 
 			$this->load->helper(array('form', 'url'));
@@ -47,6 +52,10 @@ class Barang extends CI_Controller {
             if ($this->form_validation->run() == FALSE){
 		        $data['judul'] = "Form Input Barang";
 				$data['content'] = '/barang/form_add';
+				$data['kode'] = $_POST['kode'];
+				$data['getKategori'] = $this->mkategori->getKategori()->result_array();
+				$data['kategori'] = $_POST['kategori'];
+
 				$this->load->view('pages/home', $data);
 			}
 			else
@@ -78,11 +87,13 @@ class Barang extends CI_Controller {
 		// print_r($getId);
 		$data = array(
 				"id" => $getId[0]['id'],
-				"nmbrg" => $getId[0]['nmbrg'],
+				"nama" => $getId[0]['nmbrg'],
 				"satuan" => $getId[0]['satuan'],
 				"jumlah" => $getId[0]['jumlah'],
 				"harga" => $getId[0]['harga'],
-				"kategori" => $getId[0]['id_kategori']
+				"kategori" => $getId[0]['id_kategori'],
+				"kode" => $getId[0]['kdbrg'],
+				"keterangan" => $getId[0]['keterangan']
 
 			);
 		$data['getKategori'] = $this->mkategori->getKategori()->result_array();
@@ -97,10 +108,20 @@ class Barang extends CI_Controller {
 
 	public function do_edit(){
 
+		// echo "<pre>";
+		// print_r($_POST);
+		// echo "</pre>";
+
+		// die();
+
+			$this->form_validation->set_rules('kode','kode_barang','trim|required');
 			$this->form_validation->set_rules('nama', 'nama barang', 'trim|required');
 			$this->form_validation->set_rules('satuan', 'satuan barang', 'trim|required');
 			$this->form_validation->set_rules('jumlah', 'jumlah barang', 'trim|required|numeric');
 			$this->form_validation->set_rules('harga', 'harga barang', 'trim|required|numeric');
+			$this->form_validation->set_rules('kategori', 'kategori barang', 'required');
+			$this->form_validation->set_rules('keterangan', 'keterangan kategori', 'trim|required');
+
 
 
 			$this->load->helper(array('form', 'url'));
@@ -110,7 +131,17 @@ class Barang extends CI_Controller {
 
             if ($this->form_validation->run() == FALSE){
 		        $data['judul'] = "Form Edit Barang";
-				$data['content'] ="/barang/form_edit/";
+				$data['content'] ="/barang/form_edit";
+				$data['getKategori'] = $this->mkategori->getKategori()->result_array();
+				$data['id'] = $_POST['id'];
+				$data['kode'] = $_POST['kode'];
+				$data['nama'] = $_POST['nama'];
+				$data['satuan'] = $_POST['satuan'];
+				$data['harga'] = $_POST['harga'];
+				$data['jumlah'] = $_POST['jumlah'];
+				$data['keterangan'] = $_POST['keterangan'];
+				$data['kategori'] = $_POST['kategori'];
+
 				$this->load->view('pages/home', $data);
 			}
 			else
@@ -157,7 +188,14 @@ class Barang extends CI_Controller {
 	{
 		$id = $this->input->post('id');
 		$response = $this->db->query("SELECT * FROM `kategori` where id='".$id."'")->row();
-		echo json_encode($response);
+		if(empty($id))
+		{   
+			$response = array("keterangan" => "");
+			echo json_encode($response);
+
+		}else{
+			echo json_encode($response);
+		}
 		/*$where = "where id = '".$id."'";
 		$data=$this->mbarang->getKategori($where)->result_row();
 		echo json_encode($data);*/
